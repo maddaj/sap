@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!
+{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	<div class="container container-header">
+		<div class="row mt-5">
+			<div class="col-12 col-md-7 img-header"></div>
+			<div class="col-12 col-md-5 text-header">
+				<h1>Discover the creations of street art culture</h1>
+				<p>Street Art Project is the leading destination for finding and presenting creative work and is home to the world's best street art artists.</p>
+				<button type="button" class="btn btn-dark">See all creations</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- MAIN -->
+	<div class="main-container">
+		<div class="row card-row">
+			{% for onePost in posts %}
+				<div class="col-12 col-md-4 col-lg-3 justify-content-around my-5 justify-content-around">
+					<div class="dribble-card" style="background-image: url('{{ onePost.urlimage }}')">
+						<div class="dribble-hover">
+							<p class="dribble-hover-title">{{ onePost.title }}</p>
+							<p class="dribble-hover-title">{{ onePost.category }}</p>
+						</div>
+					</div>
+					{# <div class="dribble-meta">
+																																														<div class="dribble-author" ">
+																																															<img src=" https://cdn.dribbble.com/users/63407/avatars/original/avatar.png" alt="author"/>
+																																															<a href="?search=@<?php echo $oneArticle->user->nickname ?>" class="card__author" title="author">@{{ nickname }}</a>
+																																														</div>
+																																													</div> #}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+{% endblock %}
