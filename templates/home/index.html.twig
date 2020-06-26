@@ -27,12 +27,12 @@
 							<p class="dribble-hover-title">{{ onePost.category }}</p>
 						</div>
 					</div>
-					{# <div class="dribble-meta">
-																																														<div class="dribble-author" ">
-																																															<img src=" https://cdn.dribbble.com/users/63407/avatars/original/avatar.png" alt="author"/>
-																																															<a href="?search=@<?php echo $oneArticle->user->nickname ?>" class="card__author" title="author">@{{ nickname }}</a>
-																																														</div>
-																																													</div> #}
+					<div class="dribble-meta">
+						<div class="dribble-author">
+							<img src=" https://cdn.dribbble.com/users/63407/avatars/original/avatar.png" alt="author"/>
+							<a href="{{ path('home',{'search':'@' ~ onePost.author.nickname })}}" class="card__author" title="author">@{{ onePost.author.nickname }}</a>
+						</div>
+					</div>
 				</div>
 			{% endfor %}
 		</div>

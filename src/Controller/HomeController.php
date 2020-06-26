@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,12 +14,20 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      **/
-    public function index(Request $request, PostRepository $postRepo): Response
+    public function index(Request $request, PostRepository $postRepo, UserRepository $userRepo): Response
     {
         $posts = array();
 
         if ($request->query->has('search')) {
-            $posts = $postRepo->search($request->query->get('search'));
+            $search = $request->query->get('search');
+            if (strpos($search, '@') === 0) {
+                $author = $userRepo->findOneBy(["nickname" => substr($search, 1)]);
+                if ($author != NULL) {
+                    $posts = $postRepo->findBy(["author" => $author]);
+                }
+            } else {
+                $posts = $postRepo->search($search);
+            }
         } else {
             $posts = $postRepo->findAll();
         }
